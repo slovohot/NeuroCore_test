@@ -36,10 +36,10 @@ def upload_async(images: list[str], limit: int) -> list[UploadResult]:
     остальные ждут в очереди не блокируя поток
     gather() запускает все задачи сразу, семафор сам регулирует очередь
     """
+
     async def _run() -> list[UploadResult]:
         semaphore = asyncio.Semaphore(limit)
         tasks = [_upload_one(url, semaphore) for url in images]
         return await asyncio.gather(*tasks)
 
     return asyncio.run(_run())
-

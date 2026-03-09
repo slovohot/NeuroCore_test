@@ -6,8 +6,10 @@ from uploader.uploader import upload_images, UploadMethod
 QUANTITY_IMG = 10  # количество картинок (X из тз)
 LIMIT = 5  # количество загружаемых картинок за раз (N из тз)
 
-IMAGE_URLS = [f"https://example.com/photo_{i}.jpg"
-              for i in random.sample(range(1, 1000), QUANTITY_IMG)]
+IMAGE_URLS = [
+    f"https://example.com/photo_{i}.jpg"
+    for i in random.sample(range(1, 1000), QUANTITY_IMG)
+]
 
 
 if __name__ == "__main__":
@@ -18,6 +20,6 @@ if __name__ == "__main__":
         elapsed = time.perf_counter() - t0
         for r in results:
             print(r)
-        print(f"\nВремя: {elapsed:.2f}s | {sum(r.success for r in results)}/{len(results)} успешно")
-
-
+        print(
+            f"\nВремя: {elapsed:.2f}s | {sum(r.success for r in results)}/{len(results)} успешно"
+        )

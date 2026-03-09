@@ -6,8 +6,8 @@ from uploader.uploader import upload_images, UploadMethod
 from uploader.async_uploader import upload_async
 from uploader.thread_uploader import upload_threaded
 
-
 # ── async ────────────────────────────────────────────────────────────────────
+
 
 class TestAsyncUploader:
     def test_returns_all_results(self, sample_urls):
@@ -30,7 +30,10 @@ class TestAsyncUploader:
 
     def test_error_stored_in_result(self, single_url):
 
-        with patch("uploader.async_uploader._fake_upload", new=AsyncMock(side_effect=ConnectionError("network error"))):
+        with patch(
+            "uploader.async_uploader._fake_upload",
+            new=AsyncMock(side_effect=ConnectionError("network error")),
+        ):
             results = upload_async(single_url, limit=1)
 
         assert not results[0].success
@@ -38,6 +41,7 @@ class TestAsyncUploader:
 
 
 # ── thread ───────────────────────────────────────────────────────────────────
+
 
 class TestThreadUploader:
     def test_returns_all_results(self, sample_urls):
@@ -47,7 +51,9 @@ class TestThreadUploader:
         assert all(r.success for r in upload_threaded(sample_urls, limit=5))
 
     def test_correct_urls(self, sample_urls):
-        assert {r.url for r in upload_threaded(sample_urls, limit=5)} == set(sample_urls)
+        assert {r.url for r in upload_threaded(sample_urls, limit=5)} == set(
+            sample_urls
+        )
 
     def test_duration_positive(self, sample_urls):
         assert all(r.duration > 0 for r in upload_threaded(sample_urls, limit=5))
@@ -60,7 +66,10 @@ class TestThreadUploader:
 
     def test_error_stored_in_result(self, single_url):
 
-        with patch("uploader.thread_uploader._fake_upload", side_effect=ConnectionError("network error")):
+        with patch(
+            "uploader.thread_uploader._fake_upload",
+            side_effect=ConnectionError("network error"),
+        ):
             results = upload_threaded(single_url, limit=1)
 
         assert not results[0].success
@@ -68,6 +77,7 @@ class TestThreadUploader:
 
 
 # ── upload_images (точка входа) ───────────────────────────────────────────────
+
 
 class TestUploadImages:
     def test_empty_list(self):
@@ -89,5 +99,3 @@ class TestUploadImages:
         for method in UploadMethod:
             results = upload_images(single_url, limit=1, method=method)
             assert isinstance(results[0], UploadResult)
-
-

@@ -11,5 +11,3 @@ class UploadResult:
     def __repr__(self) -> str:
         status = "OK" if self.success else "ERROR"
         return f"[{status}] {self.url} ({self.duration:.3f}s)"
-
-

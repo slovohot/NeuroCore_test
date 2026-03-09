@@ -13,6 +13,7 @@ pip install -r requirements.txt
 
 python main.py  # посмотреть как работает
 pytest -v       # прогнать тесты
+black .         # форматирование кода
 ```
 
 ---

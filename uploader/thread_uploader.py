@@ -43,8 +43,8 @@ def upload_threaded(images: list[str], limit: int) -> list[UploadResult]:
             except Exception as e:
                 url = futures[future]
                 logger.error(f"[thread] ошибка {url}: {e}")
-                results.append(UploadResult(url=url, success=False, duration=0.0, error=str(e)))
+                results.append(
+                    UploadResult(url=url, success=False, duration=0.0, error=str(e))
+                )
 
     return results
-
-

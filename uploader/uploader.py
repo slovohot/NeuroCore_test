@@ -10,7 +10,9 @@ class UploadMethod(Enum):
     THREAD = "thread"
 
 
-def upload_images(urls: list[str], limit: int, method: UploadMethod) -> list[UploadResult]:
+def upload_images(
+    urls: list[str], limit: int, method: UploadMethod
+) -> list[UploadResult]:
     """
     Загружает список картинок с ограничением одновременных загрузок
 

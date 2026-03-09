@@ -9,5 +9,3 @@ def sample_urls() -> list[str]:
 @pytest.fixture
 def single_url() -> list[str]:
     return ["https://example.com/image_1.jpg"]
-
-
