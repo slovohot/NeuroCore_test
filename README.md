@@ -9,11 +9,11 @@
 ## Запуск
 
 ```bash
-pip install -r requirements.txt
+uv sync                # установить зависимости
 
-python main.py  # посмотреть как работает
-pytest -v       # прогнать тесты
-black .         # форматирование кода
+uv run python main.py  # посмотреть как работает
+uv run pytest -v       # прогнать тесты
+uv run black .         # форматирование кода
 ```
 
 ---
