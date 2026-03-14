@@ -7,7 +7,6 @@ from core.logger import get_logger
 from uploader.models import UploadResult
 
 logger = get_logger(__name__)
-lock = threading.Lock()
 
 
 def _fake_upload(url: str) -> UploadResult:
@@ -28,11 +27,9 @@ def upload_threaded(images: list[str], limit: int) -> list[UploadResult]:
     results: list[UploadResult] = []
 
     def _upload_with_log(url: str) -> UploadResult:
-        with lock:  # исключаем race condition для логгера
-            logger.info(f"[thread] старт + {url} ({threading.current_thread().name})")
+        logger.info(f"[thread] старт + {url} ({threading.current_thread().name})")
         result = _fake_upload(url)
-        with lock:
-            logger.info(f"[thread] готово - {result}")
+        logger.info(f"[thread] готово - {result}")
         return result
 
     with ThreadPoolExecutor(max_workers=limit) as executor:
